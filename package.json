@@ -1,0 +1,21 @@
+{
+  "name": "Gantt",
+  "version": "0.0.0",
+  "description": "Allow you to display objet in a Gantt",
+  "main": "src/cwImprovedGantt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nevakee716/cwGantt.git"
+  },
+  "author": "Mathias Pfauwadel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nevakee716/cwGantt/issues"
+  },
+  "homepage": "https://github.com/nevakee716/cwGantt/wiki",
+  "wiki": "https://github.com/nevakee716/cwGantt/wiki",
+  "evolve-version": "4.1 - 4.2"
+}
