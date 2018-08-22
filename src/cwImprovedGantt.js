@@ -44,19 +44,42 @@
                     "classStyle": "gtaskred" 
                 }
             },
-            "styles" : {
-                "red" : "color: red; background-color: pink;"
-            },
-            "nodeAsTimeElement" : [],
             "hiddenNodes" : [],
             "complementaryNode" : [],
-            "multiline" : "10",
             "dateDisplayFormat":"mm/dd/yyyy",
-            "columnMap" : [{
+            "scale" : "month",
+            "fixedColumnMap" : [
+            {
+                scriptname : "startdate",
+                label : "Start Date",
+                width : "70"
+            },
+            {
+                scriptname : "enddate",
+                label : "End Date",
+                width : "70"
+            },
+            {
+                scriptname : "duration",
+                label : "Duration",
+                width : "70"
+            },
+            {
+                scriptname : "pccomplete",
+                label : "% Completion",
+                width : "50"
+            },
+            {
+                scriptname : "taskname",
+                width : "400"
+            }],
+            "customColumnMap" : [{
                 scriptname : "type",
                 label : "Category",
-                width : "70px"
-            }]
+                width : "70"
+            }],
+            
+
         };
 
     };

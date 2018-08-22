@@ -1,6 +1,7 @@
+
+
 /* Sample CSS for jsGanttImproved v1.7.5.4 */
 div.gantt		{ font-family:tahoma, arial, verdana, Sans-serif; font-size:10px; color: #656565; }
-
 
 .iGanttPopOutIcon {font-size: 12px}
 .iGanttPopOutIcon:hover{
@@ -36,7 +37,7 @@ td.gspanning				{ border-left: none; border-right: none; }
 .gduration,
 .gpccomplete,
 .gstartdate,
-.genddate					{ height: 18px; white-space: nowrap; border: #efefef 1px solid; }
+.genddate					{ overflow:hidden; height: 18px; white-space: nowrap; border: #efefef 1px solid; }
 
 /* Additional values for some task list elements */
 .gresource { text-align: center; min-width: 140px; max-width: 140px; width: 140px; font-size: 10px; }

@@ -52,84 +52,29 @@
         // legend
         var x = -GanttContainer.clientWidth / 2 + 70;
         var y = -GanttContainer.clientHeight / 2 + 150;
-        this.g = new JSGantt.GanttChart(GanttContainer, 'day');
+        this.g = new JSGantt.GanttChart(GanttContainer, this.config.scale);
         this.g.setDateTaskTableDisplayFormat(this.config.dateDisplayFormat);
         this.g.setUseToolTip(0);
         this.simplify(this.JSONobjects, null);
-        this.g.Draw(this.config.columnMap);
+        this.g.Draw(this.config);
 
+        function createCSSSelector(e,t){if(document.styleSheets&&0!=document.getElementsByTagName("head").length){var s,l;if(document.styleSheets.length>0)for(var o=0,n=document.styleSheets.length;o<n;o++)if(!document.styleSheets[o].disabled){var r=document.styleSheets[o].media;if("string"===(l=typeof r)?""!==r&&-1===r.indexOf("screen")||(s=document.styleSheets[o]):"object"==l&&(""!==r.mediaText&&-1===r.mediaText.indexOf("screen")||(s=document.styleSheets[o])),void 0!==s)break}if(void 0===s){var c=document.createElement("style");for(c.type="text/css",document.getElementsByTagName("head")[0].appendChild(c),o=0;o<document.styleSheets.length;o++)document.styleSheets[o].disabled||(s=document.styleSheets[o]);l=typeof s.media}if("string"===l){for(o=0,n=s.rules.length;o<n;o++)if(s.rules[o].selectorText&&s.rules[o].selectorText.toLowerCase()==e.toLowerCase())return void(s.rules[o].style.cssText=t);s.addRule(e,t)}else if("object"===l){var d=s.cssRules?s.cssRules.length:0;for(o=0;o<d;o++)if(s.cssRules[o].selectorText&&s.cssRules[o].selectorText.toLowerCase()==e.toLowerCase())return void(s.cssRules[o].style.cssText=t);s.insertRule(e+"{"+t+"}",d)}}}
 
+        let widthSum = 23;
 
-        function createCSSSelector (selector, style) {
-          if (!document.styleSheets) return;
-          if (document.getElementsByTagName('head').length == 0) return;
-
-          var styleSheet,mediaType;
-
-          if (document.styleSheets.length > 0) {
-            for (var i = 0, l = document.styleSheets.length; i < l; i++) {
-              if (document.styleSheets[i].disabled) 
-                continue;
-              var media = document.styleSheets[i].media;
-              mediaType = typeof media;
-
-              if (mediaType === 'string') {
-                if (media === '' || (media.indexOf('screen') !== -1)) {
-                  styleSheet = document.styleSheets[i];
-                }
-              }
-              else if (mediaType=='object') {
-                if (media.mediaText === '' || (media.mediaText.indexOf('screen') !== -1)) {
-                  styleSheet = document.styleSheets[i];
-                }
-              }
-
-              if (typeof styleSheet !== 'undefined') 
-                break;
-            }
-          }
-
-          if (typeof styleSheet === 'undefined') {
-            var styleSheetElement = document.createElement('style');
-            styleSheetElement.type = 'text/css';
-            document.getElementsByTagName('head')[0].appendChild(styleSheetElement);
-
-            for (i = 0; i < document.styleSheets.length; i++) {
-              if (document.styleSheets[i].disabled) {
-                continue;
-              }
-              styleSheet = document.styleSheets[i];
-            }
-
-            mediaType = typeof styleSheet.media;
-          }
-
-          if (mediaType === 'string') {
-            for (var i = 0, l = styleSheet.rules.length; i < l; i++) {
-              if(styleSheet.rules[i].selectorText && styleSheet.rules[i].selectorText.toLowerCase()==selector.toLowerCase()) {
-                styleSheet.rules[i].style.cssText = style;
-                return;
-              }
-            }
-            styleSheet.addRule(selector,style);
-          }
-          else if (mediaType === 'object') {
-            var styleSheetLength = (styleSheet.cssRules) ? styleSheet.cssRules.length : 0;
-            for (var i = 0; i < styleSheetLength; i++) {
-              if (styleSheet.cssRules[i].selectorText && styleSheet.cssRules[i].selectorText.toLowerCase() == selector.toLowerCase()) {
-                styleSheet.cssRules[i].style.cssText = style;
-                return;
-              }
-            }
-            styleSheet.insertRule(selector + '{' + style + '}', styleSheetLength);
-          }
-        };
-
-        this.config.columnMap.forEach(function(c) {
-
-            createCSSSelector(".g" + c.scriptname,"height: 18px; white-space: nowrap; border: #efefef 1px solid; text-align: center; min-width: 140px; max-width: 140px; width: 140px; font-size: 10px;");
-            
+        this.config.customColumnMap.forEach(function(c) {
+            widthSum += parseInt(c.width) + 4;
+            createCSSSelector(".g" + c.scriptname,"overflow:hidden; height: 18px; white-space: nowrap; border: #efefef 1px solid; text-align: center; min-width: " + c.width + "px; max-width: " + c.width + "px; width: " + c.width + "px; font-size: 12px;");
         });
+        
+        this.config.fixedColumnMap.forEach(function(c) {
+            createCSSSelector(".g" + c.scriptname,"min-width: " + c.width + "px; max-width: " + c.width + "px; width: " + c.width + "px;");
+            widthSum += parseInt(c.width) + 4;
+        });
+        console.log(widthSum);
+        createCSSSelector(".glistlbl","min-width: " + widthSum + "px; max-width: " + widthSum + "px; width: " + widthSum + "px;");
+        createCSSSelector(".glistgrid","min-width: " + widthSum + "px; max-width: " + widthSum + "px; width: " + widthSum + "px;");
+        
     };
 
 

@@ -718,12 +718,12 @@ JSGantt.GanttChart=function(pDiv, pFormat)
 		return vNewNode;
 	};
 
-	this.Draw=function(columnMap)
+	this.Draw=function(config)
 	{
-		if(columnMap === undefined) {
-			columnMap = this.columnMap;
+		if(config === undefined) {
+			config = this.config;
 		} else {
-			this.columnMap = columnMap;
+			this.config = config;
 		}
 		
 		var vMaxDate=new Date();
@@ -776,7 +776,7 @@ JSGantt.GanttChart=function(pDiv, pFormat)
 			var vTmpCell=this.newNode(vTmpRow, 'td', null, 'gspanning gtaskname');
 			vTmpCell.appendChild(this.drawSelector('top'));
 			
-			columnMap.forEach(function(c) {
+			config.customColumnMap.forEach(function(c) {
 				self.newNode(vTmpRow, 'td', null, 'gspanning g' + c.scriptname, '\u00A0');
 			});
 
@@ -789,7 +789,7 @@ JSGantt.GanttChart=function(pDiv, pFormat)
 			this.newNode(vTmpRow, 'td', null, 'gtasklist', '\u00A0');
 			this.newNode(vTmpRow, 'td', null, 'gtaskname', '\u00A0');
 	
-			columnMap.forEach(function(c) {
+			config.customColumnMap.forEach(function(c) {
 				self.newNode(vTmpRow, 'td', null, 'gtaskheading g' + c.scriptname, c.label);
 			});
 
@@ -846,7 +846,7 @@ JSGantt.GanttChart=function(pDiv, pFormat)
 						vTmpDiv=this.newNode(vTmpCell, 'div', null, null, vCellContents+vTaskList[i].getName());
 					}
 
-					columnMap.forEach(function(c) {
+					config.customColumnMap.forEach(function(c) {
 						vTmpCell=self.newNode(vTmpRow, 'td', null, 'g' + c.scriptname);
 						vTmpDiv=self.newNode(vTmpCell, 'div', null, null, vTaskList[i].getAny(c.scriptname));
 					});
@@ -882,7 +882,7 @@ JSGantt.GanttChart=function(pDiv, pFormat)
 			vTmpCell=this.newNode(vTmpRow, 'td', null, 'gspanning gtaskname');
 			vTmpCell.appendChild(this.drawSelector('bottom'));
 
-			columnMap.forEach(function(c) {
+			config.customColumnMap.forEach(function(c) {
 				self.newNode(vTmpRow, 'td', null, 'gtaskheading g' + c.scriptname, '\u00A0');
 			});
 

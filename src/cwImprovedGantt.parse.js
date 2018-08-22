@@ -170,7 +170,7 @@
         var result = {},
             self = this;
 
-        this.config.columnMap.forEach(function(c) {
+        this.config.customColumnMap.forEach(function(c) {
             if (child.properties[c.scriptname]) {
                 result[c.scriptname] = child.properties[c.scriptname];
             }
