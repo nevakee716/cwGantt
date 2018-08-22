@@ -48,10 +48,6 @@
         var self = this,
             i = 0;
 
-
-        // legend
-        var x = -GanttContainer.clientWidth / 2 + 70;
-        var y = -GanttContainer.clientHeight / 2 + 150;
         this.g = new JSGantt.GanttChart(GanttContainer, this.config.scale);
         this.g.setDateTaskTableDisplayFormat(this.config.dateDisplayFormat);
         this.g.setUseToolTip(0);
@@ -66,12 +62,13 @@
             widthSum += parseInt(c.width) + 4;
             createCSSSelector(".g" + c.scriptname,"overflow:hidden; height: 18px; white-space: nowrap; border: #efefef 1px solid; text-align: center; min-width: " + c.width + "px; max-width: " + c.width + "px; width: " + c.width + "px; font-size: 12px;");
         });
-        
-        this.config.fixedColumnMap.forEach(function(c) {
-            createCSSSelector(".g" + c.scriptname,"min-width: " + c.width + "px; max-width: " + c.width + "px; width: " + c.width + "px;");
+
+        Object.keys(this.config.fixedColumnMap).map(function(objectKey, index) {
+            var c = self.config.fixedColumnMap[objectKey];
+            createCSSSelector(".g" + objectKey,"min-width: " + c.width + "px; max-width: " + c.width + "px; width: " + c.width + "px;");
             widthSum += parseInt(c.width) + 4;
         });
-        console.log(widthSum);
+
         createCSSSelector(".glistlbl","min-width: " + widthSum + "px; max-width: " + widthSum + "px; width: " + widthSum + "px;");
         createCSSSelector(".glistgrid","min-width: " + widthSum + "px; max-width: " + widthSum + "px; width: " + widthSum + "px;");
         

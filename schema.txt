@@ -1,0 +1,498 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "additionalProperties": true,
+    "title": "cwGantt Chart Configuration",
+    "definitions": {
+        "comment": {
+            "title": "Comment:",
+            "type": "string",
+            "format": "textarea",
+            "default": ""
+        },
+        "yesno": {
+            "default": "yes",
+            "type": "string",
+            "enum": [
+                "yes",
+                "no"
+            ]
+        }
+    },
+    "type": "object",
+    "id": "https://niebert.github.io/json-editor",
+    "options": {
+        "disable_collapse": true,
+        "disable_edit_json": false,
+        "disable_properties": true,
+        "collapsed": false,
+        "hidden": false
+    },
+    "defaultProperties": [
+        "nodes",
+        "hiddenNodes",
+        "complementaryNode",
+        "dateDisplayFormat",
+        "scale",
+        "fixedColumnMap",
+        "customColumnMap"
+    ],
+    "properties": {
+        "nodes": {
+            "type": "array",
+            "id": "/properties/nodes",
+            "title": "Nodes",
+            "format": "tabs",
+            "options": {
+                "disable_collapse": true,
+                "disable_array_add": false,
+                "disable_array_delete": false,
+                "disable_array_reorder": false,
+                "disable_properties": true,
+                "collapsed": false,
+                "hidden": false
+            },
+            "items": {
+                "type": "object",
+                "id": "/properties/nodes/items",
+                "title": "Nodes",
+                "options": {
+                    "disable_collapse": true,
+                    "disable_edit_json": true,
+                    "disable_properties": true,
+                    "collapsed": false,
+                    "hidden": false
+                },
+                "defaultProperties": [
+                    "nodeID",
+                    "startDate",
+                    "endDate",
+                    "completion",
+                    "finishToStart",
+                    "startToStart",
+                    "finishToFinish",
+                    "classStyle"
+                ],
+                "properties": {
+                    "nodeID": {
+                        "type": "string",
+                        "id": "/properties/nodes/items/properties/nodeID",
+                        "title": "NodeID",
+                        "default": "projet_474185792",
+                        "format": "text",
+                        "options": {
+                            "hidden": false
+                        },
+                        "propertyOrder": 10
+                    },
+                    "startDate": {
+                        "type": "string",
+                        "id": "/properties/nodes/items/properties/startDate",
+                        "title": "Start Date Property Scriptname",
+                        "default": "STARTDATE",
+                        "format": "text",
+                        "options": {
+                            "hidden": false
+                        },
+                        "propertyOrder": 20
+                    },
+                    "endDate": {
+                        "type": "string",
+                        "id": "/properties/nodes/items/properties/endDate",
+                         "title": "End Date Property Scriptname",
+                        "default": "ENDDATE",
+                        "format": "text",
+                        "options": {
+                            "hidden": false
+                        },
+                        "propertyOrder": 30
+                    },
+                    "completion": {
+                        "type": "string",
+                        "id": "/properties/nodes/items/properties/completion",
+                        "title": "Completion Property Scriptname",
+                        "default": "PERCENTCOMPLETE",
+                        "format": "text",
+                        "options": {
+                            "hidden": false
+                        },
+                        "propertyOrder": 40
+                    },
+                    "finishToStart": {
+                        "type": "array",
+                        "id": "/properties/nodes/items/properties/finishToStart",
+                        "title": "Finish To Start Association Nodes IDs",
+                        "format": "table",
+                        "options": {
+                            "disable_collapse": true,
+                            "disable_array_add": false,
+                            "disable_array_delete": false,
+                            "disable_array_reorder": false,
+                            "disable_properties": true,
+                            "collapsed": false,
+                            "hidden": false
+                        },
+                        "items": {
+                            "type": "string",
+                            "title": "ANode ID",
+                            "options": {
+                                "disable_collapse": true,
+                                "disable_edit_json": true,
+                                "disable_properties": true,
+                                "collapsed": false,
+                                "hidden": false
+                            }
+                        },
+                        "propertyOrder": 50
+                    },
+                    "startToStart": {
+                        "type": "array",
+                        "id": "/properties/nodes/items/properties/startToStart",
+                        "title": "Start To Start Association Nodes IDs",
+                        "format": "table",
+                        "options": {
+                            "disable_collapse": true,
+                            "disable_array_add": false,
+                            "disable_array_delete": false,
+                            "disable_array_reorder": false,
+                            "disable_properties": true,
+                            "collapsed": false,
+                            "hidden": false
+                        },
+                        "items": {
+                            "type": "string",
+                            "title": "ANode ID",
+                            "options": {
+                                "disable_collapse": true,
+                                "disable_edit_json": true,
+                                "disable_properties": true,
+                                "collapsed": false,
+                                "hidden": false
+                            }
+                        },
+                        "propertyOrder": 60
+                    },
+                    "finishToFinish": {
+                        "type": "array",
+                        "id": "/properties/nodes/items/properties/finishToFinish",
+                        "title": "Finish To Finish Association Nodes IDs",
+                        "format": "table",
+                        "options": {
+                            "disable_collapse": true,
+                            "disable_array_add": false,
+                            "disable_array_delete": false,
+                            "disable_array_reorder": false,
+                            "disable_properties": true,
+                            "collapsed": false,
+                            "hidden": false
+                        },
+                        "items": {
+                            "type": "string",
+                            "title": "ANode ID",
+                            "options": {
+                                "disable_collapse": true,
+                                "disable_edit_json": true,
+                                "disable_properties": true,
+                                "collapsed": false,
+                                "hidden": false
+                            }
+                        },
+                        "propertyOrder": 70
+                    },
+                    "classStyle": {
+                        "type": "string",
+                        "id": "/properties/nodes/items/properties/classStyle",
+                        "title": "Class Style",
+                        "default": "ggroupblack",
+                        "format": "text",
+                        "options": {
+                            "hidden": false,
+                            "enum_titles" : ["Black Group","Blue","Red","Green","Yellow","Purple","Pink"]
+                        },           
+                        "enum": ["ggroupblack","gtaskblue","gtaskred","gtaskgreen","gtaskyellow","gtaskpurple","gtaskpink"],
+                        "propertyOrder": 80
+                    }
+                }
+            },
+            "propertyOrder": 10
+        },
+        "hiddenNodes": {
+            "type": "array",
+            "id": "/properties/hiddenNodes",
+            "title": "Hidden Nodes IDs",
+            "format": "table",
+            "options": {
+                "disable_collapse": true,
+                "disable_array_add": false,
+                "disable_array_delete": false,
+                "disable_array_reorder": false,
+                "disable_properties": true,
+                "collapsed": false,
+                "hidden": false
+            },
+            "items": {
+                "title": "Node ID",
+                "type": "string"},
+            "propertyOrder": 20
+        },
+        "complementaryNode": {
+            "type": "array",
+            "id": "/properties/complementaryNode",
+            "title": "Complementary Node Ids",
+            "format": "table",
+            "options": {
+                "disable_collapse": true,
+                "disable_array_add": false,
+                "disable_array_delete": false,
+                "disable_array_reorder": false,
+                "disable_properties": true,
+                "collapsed": false,
+                "hidden": false
+            },
+            "items": {
+                "title": "Node ID",
+                "type": "string"},
+            "propertyOrder": 30
+        },
+        "dateDisplayFormat": {
+            "type": "string",
+            "id": "/properties/dateDisplayFormat",
+            "title": "Date Display Format",
+            "default": "mm/dd/yyyy",
+            "format": "text",
+            "options": {
+                "hidden": false
+            },
+            "propertyOrder": 40
+        },
+        "scale": {
+            "type": "string",
+            "id": "/properties/scale",
+            "title": "Scale",
+            "default": "month",
+            "format": "text",
+            "options": {
+                "hidden": false,
+                "enum_titles" : ["Day","Week","Month","Quarter"]
+            },           
+            "enum": ["day","week","month","quarter"],
+            "propertyOrder": 50
+        },
+        "fixedColumnMap": {
+            "type": "object",
+            "title": "Column Widths",
+            "format": "grid",
+            "options": {
+                "disable_collapse": false,
+                "disable_array_add": true,
+                "disable_array_delete": true,
+                "disable_array_reorder": true,
+                "disable_edit_json": true,
+                "disable_properties": true,
+                "collapsed": true,
+                "hidden": false
+            },
+            "properties": {
+                "startdate": {
+                    "type": "object",
+                    "title": " Start Date",
+                    "format": "tabs",
+                    "options": {
+                        "disable_collapse": true,
+                        "disable_edit_json": true,
+                        "disable_properties": true,
+                        "collapsed": false,
+                        "hidden": false
+                    },
+                    "properties": {
+                        "scriptname": {
+                            "type": "string",
+                            "title": "Scriptname",
+                            "format": "text",
+                            "propertyOrder": 10,
+                            "default" : "startdate",
+                            "options": {"hidden": true}
+                        },
+                        "width": {
+                            "type": "string",
+                            "title": "Width",
+                            "format": "number",
+                            "default" : 70,
+                            "propertyOrder": 30
+                        }
+                    }
+                },
+                "enddate": {
+                    "type": "object",
+                    "title": " End Date Column",
+                    "format": "table",
+                    "options": {
+                        "disable_collapse": true,
+                        "disable_edit_json": true,
+                        "disable_properties": true,
+                        "collapsed": false,
+                        "hidden": false
+                    },
+                    "properties": {
+                        "scriptname": {
+                            "type": "string",
+                            "title": "Scriptname",
+                            "format": "text",
+                            "propertyOrder": 10,
+                            "default" : "enddate",
+                            "options": {"hidden": true}
+                        },
+                        "width": {
+                            "type": "string",
+                            "title": "Width",
+                            "default" : 70,
+                            "format": "number",
+                            "propertyOrder": 30
+                        }
+                    }
+                },
+                "duration": {
+                    "type": "object",
+                    "title": " Duration Column",
+                    "format": "tabs",
+                    "options": {
+                        "disable_collapse": true,
+                        "disable_edit_json": true,
+                        "disable_properties": true,
+                        "collapsed": false,
+                        "hidden": false
+                    },
+                    "properties": {
+                        "scriptname": {
+                            "type": "string",
+                            "title": "Scriptname",
+                            "format": "text",
+                            "propertyOrder": 10,
+                            "default" : "duration",
+                            "options": {"hidden": true}
+                        },
+                        "width": {
+                            "type": "string",
+                            "title": "Width",
+                            "format": "number",
+                            "default" : 70,
+                            "propertyOrder": 30
+                        }
+                    }
+                },
+                 "pccomplete": {
+                    "type": "object",
+                    "title": " Completion",
+                    "format": "tabs",
+                    "options": {
+                        "disable_collapse": true,
+                        "disable_edit_json": true,
+                        "disable_properties": true,
+                        "collapsed": false,
+                        "hidden": false
+                    },
+                    "properties": {
+                        "scriptname": {
+                            "type": "string",
+                            "title": "Scriptname",
+                            "format": "text",
+                            "propertyOrder": 10,
+                            "default" : "pccomplete",
+                            "options": {"hidden": true}
+                        },
+                        "width": {
+                            "type": "string",
+                            "title": "Width",
+                            "format": "number",
+                            "default" : 50,
+                            "propertyOrder": 30
+                        }
+                    }
+                },
+                 "taskname": {
+                    "type": "object",
+                    "title": " Task",
+                    "format": "tabs",
+                    "options": {
+                        "disable_collapse": true,
+                        "disable_edit_json": true,
+                        "disable_properties": true,
+                        "collapsed": false,
+                        "hidden": false
+                    },
+                    "properties": {
+                        "scriptname": {
+                            "type": "string",
+                            "title": "Scriptname",
+                            "format": "text",
+                            "propertyOrder": 10,
+                            "default" : "taskname",
+                            "options": {"hidden": true}
+                        },
+                        "width": {
+                            "type": "string",
+                            "title": "Width",
+                            "format": "number",
+                            "default" : 400,
+                            "propertyOrder": 30
+                        }
+                    }
+                }
+            },
+            "propertyOrder": 60
+        },
+        "customColumnMap": {
+            "type": "array",
+            "id": "/properties/customColumnMap",
+            "title": "Custom Column Mapping",
+            "format": "tabs",
+            "options": {
+                "disable_collapse": true,
+                "disable_array_add": false,
+                "disable_array_delete": false,
+                "disable_array_reorder": false,
+                "disable_properties": true,
+                "collapsed": false,
+                "hidden": false
+            },
+            "items": {
+                "headerTemplate": "{{ self.label }}",
+                "type": "object",
+                "id": "/properties/customColumnMap/items",
+                "title": "",
+                "options": {
+                    "disable_collapse": true,
+                    "disable_edit_json": true,
+                    "disable_properties": true,
+                    "collapsed": false,
+                    "hidden": false
+                },
+                "defaultProperties": [
+                    "scriptname",
+                    "label",
+                    "width"
+                ],
+                "properties": {
+                    "scriptname": {
+                        "type": "string",
+                        "title": "Scriptname",
+                        "format": "text",
+                        "propertyOrder": 10
+                    },
+                    "label": {
+                        "type": "string",
+                        "title": "Label",
+                        "format": "text",
+                        "propertyOrder": 20
+                    },
+                    "width": {
+                        "type": "string",
+                        "title": "Width",
+                        "format": "number",
+                        "propertyOrder": 30
+                    }
+                }
+            },
+            "propertyOrder": 70
+        }
+    }
+}
