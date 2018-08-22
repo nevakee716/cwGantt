@@ -16,6 +16,7 @@
         };
     }
 
+
     cwImprovedGantt.prototype.getItemDisplayString = function(item) {
         var l, getDisplayStringFromLayout = function(layout) {
             return layout.displayProperty.getDisplayString(item);
@@ -32,6 +33,22 @@
             }
         }
         return getDisplayStringFromLayout(this.layoutsByNodeId[item.nodeID]);
+    };
+
+    cwImprovedGantt.prototype.getCDSWithLink = function(item) {
+        return cwAPI.getItemLinkWithName(item).replace(item.name, this.getItemDisplayString(item));
+    };
+   
+    cwImprovedGantt.prototype.getCDSWithLinkAndPopOut = function(item) {
+        let r = this.getCDSWithLink(item);
+        let popOutText = '<i class="fa fa-external-link" aria-hidden="true"></i>';
+        let popOutName = cwApi.replaceSpecialCharacters(item.objectTypeScriptName) + "_diagram_popout";
+        if(cwAPI.ViewSchemaManager.pageExists(popOutName) === true &&  cwAPI.customFunction.openDiagramPopoutWithID) {
+            let popoutElement = ' <span class="iGanttPopOutIcon" onclick="cwAPI.customFunction.openDiagramPopoutWithID(' + item.object_id + ',\'' + popOutName + '\');">' + popOutText + "</span>";
+            r += popoutElement;
+        }
+        r = "<span>" + r + "</span>";
+        return r;
     };
 
     cwImprovedGantt.prototype.parseNode = function(child, callback) {
@@ -63,7 +80,7 @@
                 childrenArray = childrenArray.concat(self.simplify(nextChild, child.object_id));
             } else { // adding regular node
                 element = {};
-                element.label = self.multiLine(nextChild.name, self.config.multiLine);
+                element.label = self.getCDSWithLinkAndPopOut(nextChild);
 
                 if (self.config.nodes && self.config.nodes.hasOwnProperty(nextChild.nodeID)) {
                     config = self.config.nodes[nextChild.nodeID];
@@ -219,7 +236,7 @@
         cpyObj.associations = assoNode;
 
         this.JSONobjects = cpyObj;
-        output.push('<div id="cwImprovedGantt' + this.nodeID + '"></div>');
+        output.push('<div class="cw-visible" id="cwImprovedGantt' + this.nodeID + '"></div>');
 
     };
 

@@ -171,7 +171,7 @@ JSGantt.TaskItem=function(pID, pName, pStart, pEnd, pClass, pLink, pMile, pRes, 
 	}
 
 	this.getID=function(){return vID;};
-	this.getName=function(){return vName;};
+	this.getName=function(){return pName;};
 	this.getStart=function(){return vStart;};
 	this.getEnd=function(){return vEnd;};
 	this.getGroupMinStart=function(){return vGroupMinStart;};
@@ -698,12 +698,21 @@ JSGantt.GanttChart=function(pDiv, pFormat)
 				vNewNode.setAttribute(pAttribs[i],pAttribs[i+1]);
 			}
 		}
+		var isHTML = RegExp.prototype.test.bind(/(<([^>]+)>)/i);
+
 		// I wish I could do this with setAttribute but older IEs don't play nice
 		if (pId)vNewNode.id=pId;
 		if (pClass)vNewNode.className=pClass;
 		if (pWidth)vNewNode.style.width=(isNaN(pWidth*1))?pWidth:pWidth+'px';
 		if (pLeft)vNewNode.style.left=(isNaN(pLeft*1))?pLeft:pLeft+'px';
-		if (pText)vNewNode.appendChild(document.createTextNode(pText));
+		if(pText) {
+			if (isHTML(pText)) {
+				vNewNode.innerHTML  = pText; 
+			} else {
+				vNewNode.appendChild(document.createTextNode(pText));
+			}
+		}
+		
 		if (pDisplay)vNewNode.style.display=pDisplay;
 		if (pColspan)vNewNode.colSpan=pColspan;
 		return vNewNode;
@@ -820,9 +829,16 @@ JSGantt.GanttChart=function(pDiv, pFormat)
 					{
 						vTmpDiv=this.newNode(vTmpCell, 'div', null, null, vCellContents);
 						var vTmpSpan=this.newNode(vTmpDiv, 'span', vDivId+'group_'+vID, 'gfoldercollapse', (vTaskList[i].getOpen()==1)?'-':'+');
+						let d = document.createElement("div");
+						d.innerHTML = '\u00A0' + vTaskList[i].getName();
+						vTmpDiv.appendChild(d.firstChild);
+						vTmpDiv.appendChild(d.lastChild);
 						vTaskList[i].setGroupSpan(vTmpSpan);
+						
+						
+						
 						JSGantt.addFolderListeners(this, vTmpSpan, vID);
-						vTmpDiv.appendChild(document.createTextNode('\u00A0'+vTaskList[i].getName()));
+						//vTmpDiv.appendChild(document.createTextNode('\u00A0'+vTaskList[i].getName()));
 					}
 					else
 					{

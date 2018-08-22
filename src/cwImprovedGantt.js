@@ -23,6 +23,7 @@
         this.complementaryNode = [];
         this.objectTypeTable = {};
         this.reverseobjectTypeTable = {};
+        this.layoutsByNodeId = {};
         this.config =  {
             "nodes" : {
                 "projet_474185792": {    // node ID

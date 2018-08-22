@@ -1,6 +1,12 @@
 /* Sample CSS for jsGanttImproved v1.7.5.4 */
 div.gantt		{ font-family:tahoma, arial, verdana, Sans-serif; font-size:10px; color: #656565; }
 
+
+.iGanttPopOutIcon {font-size: 12px}
+.iGanttPopOutIcon:hover{
+ cursor: pointer;
+}
+
 .gantt table	{ border-collapse: collapse; }
 .gantt td { padding: 0px; }
 
@@ -37,12 +43,12 @@ td.gspanning				{ border-left: none; border-right: none; }
 .gduration,
 .gpccomplete,
 .gstartdate div, /* needed for IE8 */
-.gstartdate					{ text-align: center; min-width: 70px; max-width: 70px; width: 70px; font-size: 10px; }
+.gstartdate					{ text-align: center; min-width: 70px; max-width: 70px; width: 70px; font-size: 12px; }
 .genddate div, /* needed for IE8 */
-.genddate					{ text-align: center; min-width: 70px; max-width: 70px; width: 70px; font-size: 10px; }
+.genddate					{ text-align: center; min-width: 70px; max-width: 70px; width: 70px; font-size: 12px; }
 .gtaskheading				{ text-align: center; }
 .gtaskname div, /* needed for IE8 */
-.gtaskname					{ min-width: 170px; max-width: 350px; width: 350px; font-size: 9px; border-left: none; }
+.gtaskname					{ min-width: 170px; max-width: 350px; width: 350px; font-size: 12px; border-left: none; }
 
 .gselector					{ text-align: left; white-space: nowrap; min-width: 170px; max-width: 170px; width: 170px; }
 
