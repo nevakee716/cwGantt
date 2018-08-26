@@ -1141,6 +1141,7 @@ JSGantt.GanttChart=function(pDiv, pFormat)
 						{
 							vTmpDiv=this.newNode(vTmpDiv, 'div', vDivId+'bardiv_'+vID, 'gtaskbarcontainer', null, vTaskWidth, vTaskLeftPx);
 							vTaskList[i].setBarDiv(vTmpDiv);
+
 							vTmpDiv2=this.newNode(vTmpDiv, 'div', vDivId+'taskbar_'+vID, vTaskList[i].getClass(), null, vTaskWidth);
 							vTaskList[i].setTaskDiv(vTmpDiv2);
 
@@ -1182,7 +1183,15 @@ JSGantt.GanttChart=function(pDiv, pFormat)
 						// Draw Task Bar which has colored bar div, and opaque completion div
 						vTmpDiv=this.newNode(vTmpDiv, 'div', vDivId+'bardiv_'+vID, 'gtaskbarcontainer', null, vTaskWidth, vTaskLeftPx);
 						vTaskList[i].setBarDiv(vTmpDiv);
+						
 						vTmpDiv2=this.newNode(vTmpDiv, 'div', vDivId+'taskbar_'+vID, vTaskList[i].getClass(), null, vTaskWidth);
+
+						if(vTaskList[i].getClass() === "gmilestone"){
+							vTmpDiv2=this.newNode(vTmpDiv2, 'div', null, 'gmilediamond');
+							this.newNode(vTmpDiv2, 'div', null, 'gmdtop');
+							this.newNode(vTmpDiv2, 'div', null, 'gmdbottom');
+						} 
+
 						vTaskList[i].setTaskDiv(vTmpDiv2);
 						this.newNode(vTmpDiv2, 'div', vDivId+'complete_'+vID, vTaskList[i].getClass() +'complete', null, vTaskList[i].getCompStr());
 

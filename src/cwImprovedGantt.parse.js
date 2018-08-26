@@ -38,12 +38,12 @@
     cwImprovedGantt.prototype.getCDSWithLink = function(item) {
         return cwAPI.getItemLinkWithName(item).replace(item.name, this.getItemDisplayString(item));
     };
-   
+
     cwImprovedGantt.prototype.getCDSWithLinkAndPopOut = function(item) {
         let r = this.getCDSWithLink(item);
         let popOutText = '<i class="fa fa-external-link" aria-hidden="true"></i>';
         let popOutName = cwApi.replaceSpecialCharacters(item.objectTypeScriptName) + "_diagram_popout";
-        if(cwAPI.ViewSchemaManager.pageExists(popOutName) === true &&  cwAPI.customFunction.openDiagramPopoutWithID) {
+        if (cwAPI.ViewSchemaManager.pageExists(popOutName) === true && cwAPI.customFunction.openDiagramPopoutWithID) {
             let popoutElement = ' <span class="iGanttPopOutIcon" onclick="cwAPI.customFunction.openDiagramPopoutWithID(' + item.object_id + ',\'' + popOutName + '\');">' + popOutText + "</span>";
             r += popoutElement;
         }
@@ -81,11 +81,13 @@
             } else { // adding regular node
                 element = {};
                 element.label = self.getCDSWithLinkAndPopOut(nextChild);
+                element.milestones = [];
 
                 if (self.config.nodes && self.config.nodes.hasOwnProperty(nextChild.nodeID)) {
                     config = self.config.nodes[nextChild.nodeID];
                     element.ressource = self.getRessource(nextChild, config);
                     element.dependency = self.getDependency(nextChild, config);
+                    element.milestones = self.getMilestone(nextChild, config);
                     element.startDate = moment(self.getProperty(nextChild, config, "startDate")).format("YYYY-MM-DD");
                     element.endDate = moment(self.getProperty(nextChild, config, "endDate")).format("YYYY-MM-DD");
                     element.completion = self.getProperty(nextChild, config, "completion");
@@ -117,6 +119,7 @@
 
                     self.reverseIdTable[element.ganttID] = element;
                     self.createTask(element, config);
+                    self.createMilestones(element, config);
                 }
             }
         });
@@ -136,6 +139,30 @@
         return "";
     };
 
+    cwImprovedGantt.prototype.getMilestone = function(child, config) {
+        var result = [],
+            self = this,
+            particule = "",
+            init = true;
+
+        this.parseNode(child, function(nextChild, associationNode) {
+            particule = "";
+
+            if (config.milestone && config.milestone.indexOf(nextChild.nodeID) !== -1) {
+                var milestone = {};
+                milestone.date = moment(self.getProperty(nextChild, config, "startDate")).format("YYYY-MM-DD");
+                milestone.label = "toto";
+                milestone.id = nextChild.object_id + "_" + nextChild.objectTypeScriptName + "_" + child.object_id;
+                if (milestone.date > moment(new Date())) milestone.done = 0;
+                else milestone.done = 100;
+                result.push(milestone);
+                self.config.hiddenNodes.push(nextChild.nodeID);
+            }
+
+        });
+        return result;
+    };
+
     cwImprovedGantt.prototype.getDependency = function(child, config) {
         var result = "",
             self = this,
@@ -152,14 +179,14 @@
                 particule = "SS";
                 self.config.hiddenNodes.push(nextChild.nodeID);
             }
-             if (config.finishToStart && config.finishToFinish.indexOf(nextChild.nodeID) !== -1) {
+            if (config.finishToStart && config.finishToFinish.indexOf(nextChild.nodeID) !== -1) {
                 particule = "FF";
                 self.config.hiddenNodes.push(nextChild.nodeID);
             }
-            if(particule!== "" ) {
+            if (particule !== "") {
                 init = false;
-                if(init) result += ",";
-                result += self.getGanttId(nextChild) + particule;     
+                if (init) result += ",";
+                result += self.getGanttId(nextChild) + particule;
             }
         });
         return result;
@@ -179,18 +206,39 @@
         return result;
     };
 
+    cwImprovedGantt.prototype.createMilestones = function(element, config) {
+        var type = 0,
+            mile = 0,
+            cMile = 0,
+            classStyle = "gmilestone", //gmilestone
+            self = this;
+
+
+        if (element.milestones.length > 0) {
+            element.milestones.forEach(function(m) {
+                cMile += m.done;
+            });
+
+            cMile = cMile / element.milestones.length;
+            self.g.AddTaskItem(new JSGantt.TaskItem(element.ganttID + 420000000, "Milestones", '', '', 'ggroupblack', '', 0, element.milestones[0].ressource, cMile, 2, element.ganttID, 1, null, '', element.description, self.g));
+
+            element.milestones.forEach(function(m) {
+                self.g.AddTaskItem(new JSGantt.TaskItem(m.id, m.label, m.date, m.date, classStyle, '', 0, element.ressource, m.done, type, element.ganttID + 420000000, 1, null, '', element.description, self.g));
+            });
+        }
+
+    };
 
     cwImprovedGantt.prototype.createTask = function(element, config) {
         var type = 0,
             classStyle = "gtaskred";
         if (config !== undefined) classStyle = config.classStyle;
-        if (element.hasChildren) type = 1;
+        if (element.hasChildren || element.milestones.length > 0) type = 1;
         this.g.AddTaskItem(new JSGantt.TaskItem(element.ganttID, element.label, element.startDate, element.endDate, classStyle, '', 0, element.ressource, element.completion, type, element.fatherGanttId, 1, element.dependency, '', element.description, this.g));
 
     };
 
 
-   
 
     cwImprovedGantt.prototype.multiLine = function(name, size) {
         if (size !== "" && size > 0) {

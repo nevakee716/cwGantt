@@ -41,6 +41,7 @@
                 "finishToStart": ["projet_20217_39247427"],
                 "startToStart": ["projet_20218_858571321"],
                 "finishToFinish": ["projet_20219_1725533778"],
+                "milestone" : ["projet_20027_2109559671"],
                 "classStyle": "gtaskred"
             }],
             "hiddenNodes": [],
@@ -58,7 +59,7 @@
                 },
                 "duration": {
                     "scriptname": "duration",
-                    "width": "70"
+                    "width": "0"
                 },
                 "pccomplete": {
                     "scriptname": "pccomplete",

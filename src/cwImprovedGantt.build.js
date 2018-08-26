@@ -51,6 +51,7 @@
         this.g = new JSGantt.GanttChart(GanttContainer, this.config.scale);
         this.g.setDateTaskTableDisplayFormat(this.config.dateDisplayFormat);
         this.g.setUseToolTip(0);
+        //this.g.setShowDur(0);
         this.simplify(this.JSONobjects, null);
         this.g.Draw(this.config);
 
