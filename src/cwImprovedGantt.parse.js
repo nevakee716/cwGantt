@@ -151,7 +151,7 @@
             if (config.milestone && config.milestone.indexOf(nextChild.nodeID) !== -1) {
                 var milestone = {};
                 milestone.date = moment(self.getProperty(nextChild, config, "startDate")).format("YYYY-MM-DD");
-                milestone.label = "toto";
+                milestone.label = self.getItemDisplayString(nextChild);
                 milestone.id = nextChild.object_id + "_" + nextChild.objectTypeScriptName + "_" + child.object_id;
                 if (milestone.date > moment(new Date())) milestone.done = 0;
                 else milestone.done = 100;

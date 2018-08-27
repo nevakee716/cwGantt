@@ -1187,6 +1187,7 @@ JSGantt.GanttChart=function(pDiv, pFormat)
 						vTmpDiv2=this.newNode(vTmpDiv, 'div', vDivId+'taskbar_'+vID, vTaskList[i].getClass(), null, vTaskWidth);
 
 						if(vTaskList[i].getClass() === "gmilestone"){
+							vTmpDiv2.title = vTaskList[i].getName();
 							vTmpDiv2=this.newNode(vTmpDiv2, 'div', null, 'gmilediamond');
 							this.newNode(vTmpDiv2, 'div', null, 'gmdtop');
 							this.newNode(vTmpDiv2, 'div', null, 'gmdbottom');
