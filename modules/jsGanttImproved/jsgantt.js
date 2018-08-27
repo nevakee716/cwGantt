@@ -368,10 +368,10 @@ JSGantt.GanttChart=function(pDiv, pFormat)
 		}
 	};
 	this.setShowRes=function(pVal){vShowRes=pVal;};
-	this.setShowDur=function(pVal){vShowDur=pVal;};
-	this.setShowComp=function(pVal){vShowComp=pVal;};
-	this.setShowStartDate=function(pVal){vShowStartDate=pVal;};
-	this.setShowEndDate=function(pVal){vShowEndDate=pVal;};
+	this.setShowduration=function(pVal){vShowDur=pVal;};
+	this.setShowpccomplete=function(pVal){vShowComp=pVal;};
+	this.setShowstartdate=function(pVal){vShowStartDate=pVal;};
+	this.setShowenddate=function(pVal){vShowEndDate=pVal;};
 	this.setShowTaskInfoRes=function(pVal){vShowTaskInfoRes=pVal;};
 	this.setShowTaskInfoDur=function(pVal){vShowTaskInfoDur=pVal;};
 	this.setShowTaskInfoComp=function(pVal){vShowTaskInfoComp=pVal;};

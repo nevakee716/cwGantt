@@ -63,7 +63,6 @@
     };
 
 
-
     cwImprovedGantt.prototype.simplify = function(child, fatherID, fatherGanttId) {
         var childrenArray = [];
         var filterArray = [];
@@ -76,8 +75,7 @@
         var l = 0;
         var hasChildren = false;
         this.parseNode(child, function(nextChild, associationNode) {
-            if (self.config.hiddenNodes.indexOf(associationNode) !== -1) { // jumpAndMerge when hidden
-                childrenArray = childrenArray.concat(self.simplify(nextChild, child.object_id));
+            if (self.removedNodes.indexOf(associationNode) !== -1) { // jumpAndMerge when hidden
             } else { // adding regular node
                 element = {};
                 element.label = self.getCDSWithLinkAndPopOut(nextChild);
@@ -105,12 +103,13 @@
                 else element.id = nextChild.object_id + "_" + nextChild.objectTypeScriptName;
                 element.objectTypeScriptName = nextChild.objectTypeScriptName;
 
+
                 if (self.objectTypeTable[nextChild.objectTypeScriptName] === undefined) {
                     self.objectTypeTable[nextChild.objectTypeScriptName] = Object.keys(self.objectTypeTable).length;
                     self.reverseobjectTypeTable[self.objectTypeTable[nextChild.objectTypeScriptName]] = nextChild.objectTypeScriptName;
                 }
 
-
+                
                 if (self.idsTable[element.id] === undefined) {
                     hasChildren = true;
                     self.idsTable[element.id] = element;
@@ -118,8 +117,9 @@
                     element.hasChildren = self.simplify(nextChild, child.object_id, element.ganttID);
 
                     self.reverseIdTable[element.ganttID] = element;
-                    self.createTask(element, config);
                     self.createMilestones(element, config);
+                    self.createTask(element, config);
+                    
                 }
             }
         });
@@ -127,7 +127,7 @@
     };
 
     cwImprovedGantt.prototype.getGanttId = function(child) {
-        return this.objectTypeTable[child.objectTypeScriptName] * 100000 + child.object_id;
+        return this.objectTypeTable[child.objectTypeScriptName] * 10000 + child.object_id;
     };
 
     cwImprovedGantt.prototype.getProperty = function(child, config, property) {
@@ -143,23 +143,27 @@
         var result = [],
             self = this,
             particule = "",
-            init = true;
+            init = true,
+            idToHide = [];
 
         this.parseNode(child, function(nextChild, associationNode) {
             particule = "";
-
             if (config.milestone && config.milestone.indexOf(nextChild.nodeID) !== -1) {
                 var milestone = {};
                 milestone.date = moment(self.getProperty(nextChild, config, "startDate")).format("YYYY-MM-DD");
                 milestone.label = self.getItemDisplayString(nextChild);
-                milestone.id = nextChild.object_id + "_" + nextChild.objectTypeScriptName + "_" + child.object_id;
-                if (milestone.date > moment(new Date())) milestone.done = 0;
-                else milestone.done = 100;
-                result.push(milestone);
-                self.config.hiddenNodes.push(nextChild.nodeID);
-            }
+                milestone.id = self.getGanttId(nextChild) + 1000000 * self.getGanttId(child);
 
+                if (self.config.fixedColumnMap.pccomplete.hide === true || milestone.date > moment(new Date())) milestone.done = 0;
+                else milestone.done = 100;
+
+                result.push(milestone);
+                
+                if(idToHide.indexOf(nextChild.nodeID) === -1) idToHide.push(nextChild.nodeID);
+            }
+            
         });
+        self.removedNodes = self.removedNodes.concat(idToHide);
         return result;
     };
 
@@ -173,15 +177,15 @@
             particule = "";
             if (config.finishToStart && config.finishToStart.indexOf(nextChild.nodeID) !== -1) {
                 particule = "FS";
-                self.config.hiddenNodes.push(nextChild.nodeID);
+                self.removedNodes.push(nextChild.nodeID);
             }
             if (config.finishToStart && config.startToStart.indexOf(nextChild.nodeID) !== -1) {
                 particule = "SS";
-                self.config.hiddenNodes.push(nextChild.nodeID);
+                self.removedNodes.push(nextChild.nodeID);
             }
             if (config.finishToStart && config.finishToFinish.indexOf(nextChild.nodeID) !== -1) {
                 particule = "FF";
-                self.config.hiddenNodes.push(nextChild.nodeID);
+                self.removedNodes.push(nextChild.nodeID);
             }
             if (particule !== "") {
                 init = false;
@@ -235,7 +239,6 @@
         if (config !== undefined) classStyle = config.classStyle;
         if (element.hasChildren || element.milestones.length > 0) type = 1;
         this.g.AddTaskItem(new JSGantt.TaskItem(element.ganttID, element.label, element.startDate, element.endDate, classStyle, '', 0, element.ressource, element.completion, type, element.fatherGanttId, 1, element.dependency, '', element.description, this.g));
-
     };
 
 
@@ -274,6 +277,8 @@
             isData = false;
         // keep the node of the layout
         assoNode[this.mmNode.NodeID] = object.associations[this.mmNode.NodeID];
+
+
         // complementary node
         this.config.complementaryNode.forEach(function(nodeID) {
             if (object.associations[nodeID]) {
@@ -282,13 +287,41 @@
         });
 
         cpyObj.associations = assoNode;
+        
+        // hidden node
+        this.manageHiddenNodes(cpyObj);
 
         this.JSONobjects = cpyObj;
         output.push('<div class="cw-visible" id="cwImprovedGantt' + this.nodeID + '"></div>');
 
     };
 
+    cwImprovedGantt.prototype.manageHiddenNodes = function(parent) {
+        var childrenToRemove = [];
+        var self = this;
 
+        this.parseNode(parent, function(child, associationNode) {
+            if(self.config.hiddenNodes.indexOf(associationNode) !== -1) { // jumpAndMerge when hidden
+                childrenToRemove.push(associationNode);
+                for (var nextassociationNode in child.associations) {
+                    if (child.associations.hasOwnProperty(nextassociationNode)) {
+                        if(!parent.associations.hasOwnProperty(nextassociationNode)) parent.associations[nextassociationNode] = [];
+                        
+                        for (var i = 0; i < child.associations[nextassociationNode].length; i += 1) {
+                            var nextChild = child.associations[nextassociationNode][i];
+                            parent.associations[nextassociationNode].push(nextChild);
+                        }
+                    }
+                }
+            } else {
+                self.manageHiddenNodes(child);
+            }
+        });
+
+        childrenToRemove.forEach(function(c) {
+            delete parent.associations[c] ; 
+        });
+    };
 
     cwApi.cwLayouts.cwImprovedGantt = cwImprovedGantt;
 }(cwAPI, jQuery));

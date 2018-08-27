@@ -23,6 +23,7 @@
         this.layoutsByNodeId = {};
         this.objectTypeTable = {};
         this.reverseobjectTypeTable = {};
+        this.removedNodes = [];
         this.config = {
             "nodes": [{
                 "nodeID": "projet_474185792",
@@ -32,6 +33,7 @@
                 "finishToStart": [],
                 "startToStart": [],
                 "finishToFinish": [],
+                "milestone" : [],
                 "classStyle": "ggroupblack"
             }, {
                 "nodeID": "projet_20027_205402790",
@@ -44,28 +46,33 @@
                 "milestone" : ["projet_20027_2109559671"],
                 "classStyle": "gtaskred"
             }],
-            "hiddenNodes": [],
+            "hiddenNodes": [""],
             "complementaryNode": [],
             "dateDisplayFormat": "mm/dd/yyyy",
             "scale": "month",
             "fixedColumnMap": {
                 "startdate": {
+                    "hide":false,
                     "scriptname": "startdate",
                     "width": "70"
                 },
                 "enddate": {
+                    "hide":false,
                     "scriptname": "enddate",
                     "width": "70"
                 },
                 "duration": {
+                    "hide":false,
                     "scriptname": "duration",
-                    "width": "0"
+                    "width": "70"
                 },
                 "pccomplete": {
+                    "hide":true,
                     "scriptname": "pccomplete",
                     "width": "50"
                 },
                 "taskname": {
+                    "hide":false,
                     "scriptname": "taskname",
                     "width": "400"
                 }
