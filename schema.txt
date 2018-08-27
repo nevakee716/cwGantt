@@ -19,7 +19,6 @@
         }
     },
     "type": "object",
-    "id": "https://niebert.github.io/json-editor",
     "options": {
         "disable_collapse": true,
         "disable_edit_json": false,
@@ -39,11 +38,11 @@
     "properties": {
         "nodes": {
             "type": "array",
-            "id": "/properties/nodes",
             "title": "Nodes",
+            "description" : "Add the nodeID which contains objects that will be use in the Gantt Chart",
             "format": "tabs",
             "options": {
-                "disable_collapse": true,
+                "disable_collapse": false,
                 "disable_array_add": false,
                 "disable_array_delete": false,
                 "disable_array_reorder": false,
@@ -53,7 +52,6 @@
             },
             "items": {
                 "type": "object",
-                "id": "/properties/nodes/items",
                 "title": "Nodes",
                 "options": {
                     "disable_collapse": true,
@@ -62,65 +60,35 @@
                     "collapsed": false,
                     "hidden": false
                 },
-                "defaultProperties": [
-                    "nodeID",
-                    "startDate",
-                    "endDate",
-                    "completion",
-                    "finishToStart",
-                    "startToStart",
-                    "finishToFinish",
-                    "classStyle"
-                ],
                 "properties": {
                     "nodeID": {
                         "type": "string",
-                        "id": "/properties/nodes/items/properties/nodeID",
                         "title": "NodeID",
                         "default": "projet_474185792",
-                        "format": "text",
-                        "options": {
-                            "hidden": false
-                        },
-                        "propertyOrder": 10
+                        "format": "text"
                     },
                     "startDate": {
                         "type": "string",
-                        "id": "/properties/nodes/items/properties/startDate",
                         "title": "Start Date Property Scriptname",
                         "default": "STARTDATE",
-                        "format": "text",
-                        "options": {
-                            "hidden": false
-                        },
-                        "propertyOrder": 20
+                        "format": "text"
                     },
                     "endDate": {
                         "type": "string",
-                        "id": "/properties/nodes/items/properties/endDate",
-                         "title": "End Date Property Scriptname",
+                        "title": "End Date Property Scriptname",
                         "default": "ENDDATE",
-                        "format": "text",
-                        "options": {
-                            "hidden": false
-                        },
-                        "propertyOrder": 30
+                        "format": "text"
                     },
                     "completion": {
                         "type": "string",
-                        "id": "/properties/nodes/items/properties/completion",
                         "title": "Completion Property Scriptname",
                         "default": "PERCENTCOMPLETE",
-                        "format": "text",
-                        "options": {
-                            "hidden": false
-                        },
-                        "propertyOrder": 40
+                        "format": "text"
                     },
                     "finishToStart": {
                         "type": "array",
-                        "id": "/properties/nodes/items/properties/finishToStart",
                         "title": "Finish To Start Association Nodes IDs",
+                        "description" : "The start of the task of this node will be trigger by the end of the tasks in these association Node",
                         "format": "table",
                         "options": {
                             "disable_collapse": true,
@@ -141,13 +109,12 @@
                                 "collapsed": false,
                                 "hidden": false
                             }
-                        },
-                        "propertyOrder": 50
+                        }
                     },
                     "startToStart": {
                         "type": "array",
-                        "id": "/properties/nodes/items/properties/startToStart",
                         "title": "Start To Start Association Nodes IDs",
+                        "description" : "The start of the task of this node will be trigger by the start of the tasks in these association Node",
                         "format": "table",
                         "options": {
                             "disable_collapse": true,
@@ -168,13 +135,12 @@
                                 "collapsed": false,
                                 "hidden": false
                             }
-                        },
-                        "propertyOrder": 60
+                        }
                     },
                     "finishToFinish": {
                         "type": "array",
-                        "id": "/properties/nodes/items/properties/finishToFinish",
                         "title": "Finish To Finish Association Nodes IDs",
+                        "description" : "The end of the task of this node will be trigger by the end of the tasks in these association Node",
                         "format": "table",
                         "options": {
                             "disable_collapse": true,
@@ -195,29 +161,49 @@
                                 "collapsed": false,
                                 "hidden": false
                             }
+                        }
+                    },
+                    "milestone": {
+                        "type": "array",
+                        "title": "Milestones Association Nodes IDs",
+                        "description" : "The end of the task of this node will be trigger by the end of the tasks in these association Node",
+                        "format": "table",
+                        "options": {
+                            "disable_collapse": true,
+                            "disable_array_add": false,
+                            "disable_array_delete": false,
+                            "disable_array_reorder": false,
+                            "disable_properties": true,
+                            "collapsed": false,
+                            "hidden": false
                         },
-                        "propertyOrder": 70
+                        "items": {
+                            "type": "string",
+                            "title": "ANode ID",
+                            "options": {
+                                "disable_collapse": true,
+                                "disable_edit_json": true,
+                                "disable_properties": true,
+                                "collapsed": false,
+                                "hidden": false
+                            }
+                        }
                     },
                     "classStyle": {
                         "type": "string",
-                        "id": "/properties/nodes/items/properties/classStyle",
                         "title": "Class Style",
                         "default": "ggroupblack",
                         "format": "text",
                         "options": {
-                            "hidden": false,
                             "enum_titles" : ["Black Group","Blue","Red","Green","Yellow","Purple","Pink"]
                         },           
-                        "enum": ["ggroupblack","gtaskblue","gtaskred","gtaskgreen","gtaskyellow","gtaskpurple","gtaskpink"],
-                        "propertyOrder": 80
+                        "enum": ["ggroupblack","gtaskblue","gtaskred","gtaskgreen","gtaskyellow","gtaskpurple","gtaskpink"]
                     }
                 }
-            },
-            "propertyOrder": 10
+            }
         },
         "hiddenNodes": {
             "type": "array",
-            "id": "/properties/hiddenNodes",
             "title": "Hidden Nodes IDs",
             "format": "table",
             "options": {
@@ -231,12 +217,10 @@
             },
             "items": {
                 "title": "Node ID",
-                "type": "string"},
-            "propertyOrder": 20
+                "type": "string"}
         },
         "complementaryNode": {
             "type": "array",
-            "id": "/properties/complementaryNode",
             "title": "Complementary Node Ids",
             "format": "table",
             "options": {
@@ -250,36 +234,30 @@
             },
             "items": {
                 "title": "Node ID",
-                "type": "string"},
-            "propertyOrder": 30
+                "type": "string"}
         },
         "dateDisplayFormat": {
             "type": "string",
-            "id": "/properties/dateDisplayFormat",
             "title": "Date Display Format",
             "default": "mm/dd/yyyy",
             "format": "text",
             "options": {
                 "hidden": false
-            },
-            "propertyOrder": 40
+            }
         },
         "scale": {
             "type": "string",
-            "id": "/properties/scale",
             "title": "Scale",
             "default": "month",
             "format": "text",
             "options": {
-                "hidden": false,
                 "enum_titles" : ["Day","Week","Month","Quarter"]
             },           
-            "enum": ["day","week","month","quarter"],
-            "propertyOrder": 50
+            "enum": ["day","week","month","quarter"]
         },
         "fixedColumnMap": {
             "type": "object",
-            "title": "Column Widths",
+            "title": "Column Behaviour",
             "format": "grid",
             "options": {
                 "disable_collapse": false,
@@ -308,16 +286,19 @@
                             "type": "string",
                             "title": "Scriptname",
                             "format": "text",
-                            "propertyOrder": 10,
                             "default" : "startdate",
                             "options": {"hidden": true}
+                        },
+                        "hide": {
+                            "type": "boolean",
+                            "title": "Hidden",
+                            "default" : false
                         },
                         "width": {
                             "type": "string",
                             "title": "Width",
                             "format": "number",
-                            "default" : 70,
-                            "propertyOrder": 30
+                            "default" : 70
                         }
                     }
                 },
@@ -337,16 +318,19 @@
                             "type": "string",
                             "title": "Scriptname",
                             "format": "text",
-                            "propertyOrder": 10,
                             "default" : "enddate",
                             "options": {"hidden": true}
+                        },
+                        "hide": {
+                            "type": "boolean",
+                            "title": "Hidden",
+                            "default" : false
                         },
                         "width": {
                             "type": "string",
                             "title": "Width",
                             "default" : 70,
-                            "format": "number",
-                            "propertyOrder": 30
+                            "format": "number"
                         }
                     }
                 },
@@ -366,16 +350,19 @@
                             "type": "string",
                             "title": "Scriptname",
                             "format": "text",
-                            "propertyOrder": 10,
                             "default" : "duration",
                             "options": {"hidden": true}
+                        },
+                        "hide": {
+                            "type": "boolean",
+                            "title": "Hidden",
+                            "default" : false
                         },
                         "width": {
                             "type": "string",
                             "title": "Width",
                             "format": "number",
-                            "default" : 70,
-                            "propertyOrder": 30
+                            "default" : 70
                         }
                     }
                 },
@@ -395,16 +382,19 @@
                             "type": "string",
                             "title": "Scriptname",
                             "format": "text",
-                            "propertyOrder": 10,
                             "default" : "pccomplete",
                             "options": {"hidden": true}
+                        },
+                        "hide": {
+                            "type": "boolean",
+                            "title": "Hidden",
+                            "default" : false
                         },
                         "width": {
                             "type": "string",
                             "title": "Width",
                             "format": "number",
-                            "default" : 50,
-                            "propertyOrder": 30
+                            "default" : 50
                         }
                     }
                 },
@@ -428,21 +418,24 @@
                             "default" : "taskname",
                             "options": {"hidden": true}
                         },
+                        "hide": {
+                            "type": "boolean",
+                            "title": "Hidden",
+                            "default" : false,
+                            "options": {"hidden": true}
+                        },
                         "width": {
                             "type": "string",
                             "title": "Width",
                             "format": "number",
-                            "default" : 400,
-                            "propertyOrder": 30
+                            "default" : 400
                         }
                     }
                 }
-            },
-            "propertyOrder": 60
+            }
         },
         "customColumnMap": {
             "type": "array",
-            "id": "/properties/customColumnMap",
             "title": "Custom Column Mapping",
             "format": "tabs",
             "options": {
@@ -457,7 +450,6 @@
             "items": {
                 "headerTemplate": "{{ self.label }}",
                 "type": "object",
-                "id": "/properties/customColumnMap/items",
                 "title": "",
                 "options": {
                     "disable_collapse": true,
@@ -475,24 +467,20 @@
                     "scriptname": {
                         "type": "string",
                         "title": "Scriptname",
-                        "format": "text",
-                        "propertyOrder": 10
+                        "format": "text"
                     },
                     "label": {
                         "type": "string",
                         "title": "Label",
-                        "format": "text",
-                        "propertyOrder": 20
+                        "format": "text"
                     },
                     "width": {
                         "type": "string",
                         "title": "Width",
-                        "format": "number",
-                        "propertyOrder": 30
+                        "format": "number"
                     }
                 }
-            },
-            "propertyOrder": 70
+            }
         }
     }
 }
