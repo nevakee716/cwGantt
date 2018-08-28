@@ -23,7 +23,7 @@
         if (cwAPI.isDebugMode() === true) {
             self.createGantt();
         } else {
-            libToLoad = ['modules/jsgantt/jsgantt.min.js'];
+            libToLoad = ['modules/jsGanttImproved/jsGanttImproved.min.js'];
             // AsyncLoad
             cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function(error) {
                 if (error === null) {
