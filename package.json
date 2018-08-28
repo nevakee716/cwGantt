@@ -1,6 +1,6 @@
 {
   "name": "Gantt",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Allow you to display objet in a Gantt",
   "main": "src/cwImprovedGantt.js",
   "scripts": {
